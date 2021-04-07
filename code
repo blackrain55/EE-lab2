@@ -1,0 +1,41 @@
+clear
+k = 9e9
+rho = 1e-9
+% basic physical quantity
+
+x = linspace(-5,5,100);
+y = linspace(-5,5,100);
+[X,Y] = meshgrid(x,y);
+u = 1 - X + sqrt( (1-X).^2  + Y.^2 );
+v = -1 - X + sqrt( (-1-X).^2  + Y.^2);
+V = k * rho * log(u./v);
+mesh(X,Y,V)
+
+Tmax=max(max(V));                               
+Tmin=min(min(V));                              
+Veq=linspace(Tmin,Tmax,50);                          
+contour(X,Y,V,Veq)  
+grid on
+
+[Ex,Ey]=gradient(-V);
+del_theta = 20;
+theta = (-240: del_theta: 120) .*pi/180;
+startx = 0.5*cos(theta);
+starty = 0.5*sin(theta);
+figure
+streamline(X,Y, Ex,Ey ,startx,starty)
+hold on
+contour(X,Y,V,Veq)
+% use the integration method to calculate the distribution of
+% electric potential at each point of the coordinate
+
+n = 20
+delta_l = 2/n
+Q = rho * delta_l
+
+
+
+
+
+
+% 比较两者的差异，1.将两幅图化为灰度图，然后相减，得到新图像
