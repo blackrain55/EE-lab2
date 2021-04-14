@@ -10,11 +10,14 @@ u = 1 - X + sqrt( (1-X).^2  + Y.^2 );
 v = -1 - X + sqrt( (-1-X).^2  + Y.^2);
 V = k * rho * log(u./v);
 mesh(X,Y,V)
+title('谭文杰-11910908-The electric potential distribution of a line charge','fontsize',20)
+xlabel('x/m');ylabel('y/m');zlabel('electric potential/V')
 
 Tmax=max(max(V));                               
 Tmin=min(min(V));                              
 Veq=linspace(Tmin,Tmax,50);                          
-contour(X,Y,V,Veq)  
+contour(X,Y,V,Veq)
+title('谭文杰-11910908-Equipotential lines of a line charge  in vacuum','fontsize',20)
 grid on
 
 [Ex,Ey]=gradient(-V);
@@ -24,6 +27,7 @@ startx = 0.5*cos(theta);
 starty = 0.5*sin(theta);
 figure
 streamline(X,Y, Ex,Ey ,startx,starty)
+title('The streamline of a line change(represented by smooth curves)','fontsize',20)
 hold on
 contour(X,Y,V,Veq)
 % use the integration method to calculate the distribution of
