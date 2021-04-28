@@ -1,0 +1,40 @@
+clear
+k = 9e9;
+rho = 1e-9;
+
+n = 20; %20,50,100
+dl = 2 / n;
+dQ = dl * rho;
+x = linspace(-5,5,100);
+y = linspace(-5,5,100);
+[X,Y] = meshgrid(x,y);
+
+points = linspace(-1,1,n);
+Vtotal = 0;
+for i = points
+    V = k * dQ  ./ sqrt((X-i).^2 + Y.^2)
+    Vtotal = Vtotal + V
+end
+
+mesh(X,Y,Vtotal)
+title('谭文杰-11910908-The electric potential distribution of a line charge dividing into 20 segements','fontsize',20)
+xlabel('x/m');ylabel('y/m');zlabel('electric potential/V')
+
+Tmax=max(max(Vtotal));                               
+Tmin=min(min(Vtotal));                              
+Veq=linspace(Tmin,Tmax,50);                          
+contour(X,Y,Vtotal,Veq)
+title('谭文杰-11910908-Equipotential lines of a line charge dividing into 20 segements in vacuum','fontsize',20)
+grid on
+
+[Ex,Ey]=gradient(-Vtotal);
+del_theta = 20;
+theta = (-240: del_theta: 120) .*pi/180;
+startx = 0.5*cos(theta);
+starty = 0.5*sin(theta);
+figure
+streamline(X,Y, Ex,Ey ,startx,starty)
+hold on
+contour(X,Y,Vtotal,Veq)
+
+title('The streamline of a line change dividing into 20 segements(represented by smooth curves)','fontsize',20)
