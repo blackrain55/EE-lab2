@@ -1,0 +1,24 @@
+clear
+k = 9e9
+rho = 1e-9
+% basic physical quantity
+
+x = linspace(-5,5,100);
+y = linspace(-5,5,100);
+[X,Y] = meshgrid(x,y);
+u = 1 - X + sqrt( (1-X).^2  + Y.^2 );
+v = -1 - X + sqrt( (-1-X).^2  + Y.^2);
+V = k * rho * log(u./v);
+
+n = 20  % 20,50,100
+dl = 2 / n;
+dQ = dl * rho;
+points = linspace(-1,1,n);
+Vtotal = 0;
+for i = points
+    dV = k * dQ  ./ sqrt((X-i).^2 + Y.^2)
+    Vtotal = Vtotal + dV
+end
+
+del = V - Vtotal
+mesh(X,Y,del)
